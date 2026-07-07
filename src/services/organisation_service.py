@@ -497,10 +497,7 @@ class OrganisationService:
         }
         """
         
-        if len(dates) > max_dates:
-            raise BadRequestError(f"Too many dates requested, only {max_dates} dates are allowed")
-        
-        if len(dates) == 1:
+        if len(dates) < 2:
             raise ValueError("At least 2 dates required for the comparison")
 
         try:
