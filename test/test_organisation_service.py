@@ -815,9 +815,9 @@ async def test_fetch_cabinet_flow_multiple_dates(organisation_service, num_dates
 
 
 @pytest.mark.asyncio
-async def test_fetch_cabinet_flow_single_date_fails(organisation_service):
+@pytest.mark.parametrize("dates", [[], ["2024-09-23"]])
+async def test_fetch_cabinet_flow_insufficient_dates(organisation_service, dates):
     president_id = "pres1"
-    dates = ["2024-09-23"]
 
     with pytest.raises(ValueError):
         await organisation_service.fetch_cabinet_flow(president_id, dates)

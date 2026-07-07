@@ -497,7 +497,7 @@ class OrganisationService:
         }
         """
         
-        if len(dates) == 1:
+        if len(dates) < 2:
             raise ValueError("At least 2 dates required for the comparison")
 
         try:
