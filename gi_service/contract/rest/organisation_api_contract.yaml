@@ -151,7 +151,7 @@ paths:
             type: string
       requestBody:
         required: true
-        description: List of dates (max 3) for which to compute the cabinet flow.
+        description: List of dates (max 10) for which to compute the cabinet flow.
         content:
           application/json:
             schema:
