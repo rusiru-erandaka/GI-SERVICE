@@ -471,7 +471,7 @@ class OrganisationService:
             raise InternalServerError("An unexpected error occurred") from e
     
     # API: cabinet flow for the given president id and date range of the presidency
-    async def fetch_cabinet_flow(self, president_id: str, dates: Sequence[str], max_dates: int = 3):
+    async def fetch_cabinet_flow(self, president_id: str, dates: Sequence[str], max_dates: int = 10):
         """
         Fetch Cabinet Flow
         
@@ -558,7 +558,14 @@ class OrganisationService:
             chart_slot_count = len(included_indices)
 
             for chart_index, date_index in enumerate(included_indices):
-                result = dates_gov_struct[date_index]
+                result = sorted(
+                    dates_gov_struct[date_index],
+                    key=lambda r: (
+                        (r.get("ministerId") or "", r.get("departmentId") or "")
+                        if isinstance(r, dict)
+                        else ("", "")
+                    ),
+                )
 
                 for relation in result:
                     if not isinstance(relation, dict):
