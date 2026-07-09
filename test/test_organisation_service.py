@@ -203,7 +203,7 @@ async def test_active_portfolio_list_invalid_president_id(
     president_id = "invalid_president_123"
     selected_date = "2021-10-27"
 
-    mock_opengin_service.get_entities.return_value = []
+    mock_opengin_service.get_entities.side_effect = NotFoundError("President not found")
 
     with pytest.raises(NotFoundError):
         await organisation_service.active_portfolio_list(
