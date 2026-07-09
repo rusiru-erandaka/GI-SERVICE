@@ -199,6 +199,13 @@ class OrganisationService:
             raise BadRequestError("Selected date is required")
         
         try:
+            president_node_data = await self.opengin_service.get_entities(
+                entity=Entity(id=president_id)
+            )
+
+            if not president_node_data:
+                raise NotFoundError("President not found for the given ID")
+
             # First retrieve the relation list of the active portfolios under given president and given date  
             relation = Relation(name=RelationNameEnum.AS_MINISTER.value,activeAt=Util.normalize_timestamp(selected_date),direction=RelationDirectionEnum.OUTGOING.value)   
             activePortfolioList = await self.opengin_service.fetch_relation(
